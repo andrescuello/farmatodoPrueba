@@ -1,0 +1,37 @@
+
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: shop
+      POSTGRES_USER: shop
+      POSTGRES_PASSWORD: shop
+    ports:
+      - "5432:5432"
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+  app:
+    build: .
+    depends_on:
+      - db
+      - mailhog
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/shop
+      SPRING_DATASOURCE_USERNAME: shop
+      SPRING_DATASOURCE_PASSWORD: shop
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
+      SPRING_SQL_INIT_MODE: always
+      SPRING_MAIL_HOST: smtp.gmail.com
+      SPRING_MAIL_PORT: 587
+      SPRING_MAIL_USR: testfarmatodo0@gmail.com
+      SPRING_MAIL_PWS: qajscwnncnsvxieq
+      SPRING_MAIL_SMTP_AUTH: true
+      SPRING_MAIL_STARTTLS_ENABLE: true
+      APP_TOKENIZATION_AESKEY: 0123456789abcdef0123456789abcdef
+      APP_PAYMENT_APPROVALRATE: 0.8
+      APP_PAYMENT_MAXRETRIES: 3
+    ports:
+      - "8080:8080"

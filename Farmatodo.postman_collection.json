@@ -1,0 +1,194 @@
+{
+  "info": {
+    "name": "Farmatodo Challenge",
+    "_postman_id": "1be0108a-33f9-43cc-b3c0-f66fa93cd612",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Ping",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/ping",
+          "host": [
+            "http://localhost:8080"
+          ],
+          "path": [
+            "ping"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create Customer",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-API-KEY",
+            "value": "dev-123456"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/customers",
+          "host": [
+            "http://localhost:8080"
+          ],
+          "path": [
+            "customers"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"John\", \"email\": \"john@test.com\", \"phone\": \"3001234567\", \"address\": \"Street 1\"}"
+        }
+      }
+    },
+    {
+      "name": "Create Product",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-API-KEY",
+            "value": "dev-123456"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/products",
+          "host": [
+            "http://localhost:8080"
+          ],
+          "path": [
+            "products"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Ibuprofeno 400mg\", \"description\": \"Caja x 10\", \"price\": 5200, \"stock\": 100}"
+        }
+      }
+    },
+    {
+      "name": "Tokenize Card",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-API-KEY",
+            "value": "dev-123456"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/auth/tokenize",
+          "host": [
+            "http://localhost:8080"
+          ],
+          "path": [
+            "auth",
+            "tokenize"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"number\": \"4111111111111111\", \"cvv\": \"123\", \"exp\": \"12/28\"}"
+        }
+      }
+    },
+    {
+      "name": "Add to Cart",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-API-KEY",
+            "value": "dev-123456"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/cart/items",
+          "host": [
+            "http://localhost:8080"
+          ],
+          "path": [
+            "cart",
+            "items"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"customerId\": \"REPLACE-CUSTOMER-UUID\",\n  \"productId\": \"REPLACE-PRODUCT-UUID\",\n  \"qty\": 2\n}"
+        }
+      }
+    },
+    {
+      "name": "List Cart",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-API-KEY",
+            "value": "dev-123456"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/cart/REPLACE-CUSTOMER-UUID",
+          "host": [
+            "http://localhost:8080"
+          ],
+          "path": [
+            "cart",
+            "REPLACE-CUSTOMER-UUID"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create Order (pay)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-API-KEY",
+            "value": "dev-123456"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/orders",
+          "host": [
+            "http://localhost:8080"
+          ],
+          "path": [
+            "orders"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"customerId\": \"REPLACE-CUSTOMER-UUID\",\n  \"shippingAddress\": \"Calle 123\",\n  \"cardToken\": \"tok_xxx\"\n}"
+        }
+      }
+    }
+  ]
+}

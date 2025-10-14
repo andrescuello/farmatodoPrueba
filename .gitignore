@@ -1,0 +1,12 @@
+/build/
+/out/
+/target/
+/.idea/
+/.vscode/
+/*.iml
+.DS_Store
+Thumbs.db
+*.log
+*.env
+application-local.yml
+*.tmp

@@ -1,0 +1,15 @@
+
+# Build stage (optional if you build jar externally)
+# FROM gradle:8.8-jdk17 AS build
+# WORKDIR /home/gradle/project
+# COPY . .
+# RUN gradle clean bootJar --no-daemon
+
+# Runtime stage
+FROM eclipse-temurin:17-jre
+RUN useradd -ms /bin/bash appuser
+USER appuser
+WORKDIR /app
+COPY build/libs/*-SNAPSHOT.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","/app/app.jar"]
