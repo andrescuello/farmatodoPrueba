@@ -45,9 +45,10 @@ docker compose logs -f app
 ```
 
 
-## Docker (producción, no-root)
-```bash
-./gradlew clean bootJar
-docker build -f Dockerfile.prod -t farmatodo-app:prod .
-docker run --rm -p 8080:8080 farmatodo-app:prod
-```
+## Despliegie a producción en GCP
+
+Para el desplegue en GCP se procedio a crear la base de datos a partir del archivo schema-postgresql.sql en la plataforma de Cloud SQL,
+luego se procedio a crea en Cloud run el proyecto para poder desplegar la microaplicación, despues se procede a conectar el repositorio
+de github para poder montar el proyecto. al momento de montar el proyecto se crearon las variables de entornos en el Cloud run para
+producción, dichas variables de entorno se ajustaron a las necesidades del proyecto, que a la final permitieron subir el proyecto.
+

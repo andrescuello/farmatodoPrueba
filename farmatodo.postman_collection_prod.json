@@ -1,0 +1,230 @@
+{
+	"info": {
+		"_postman_id": "79923e28-186a-42ff-b427-cb6dd3cce1d1",
+		"name": "Farmatodo Challenge prod",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12636353"
+	},
+	"item": [
+		{
+			"name": "Ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://farmatodoprueba-518781808749.us-central1.run.app/ping",
+					"protocol": "https",
+					"host": [
+						"farmatodoprueba-518781808749",
+						"us-central1",
+						"run",
+						"app"
+					],
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Customer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"value": "prod-123456"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\": \"John\", \"email\": \"john@test.com\", \"phone\": \"3001234567\", \"address\": \"Street 1\"}"
+				},
+				"url": {
+					"raw": "https://farmatodoprueba-518781808749.us-central1.run.app/customers",
+					"protocol": "https",
+					"host": [
+						"farmatodoprueba-518781808749",
+						"us-central1",
+						"run",
+						"app"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"value": "prod-123456"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\": \"Ibuprofeno 400mg\", \"description\": \"Caja x 10\", \"price\": 5200, \"stock\": 100}"
+				},
+				"url": {
+					"raw": "https://farmatodoprueba-518781808749.us-central1.run.app/products",
+					"protocol": "https",
+					"host": [
+						"farmatodoprueba-518781808749",
+						"us-central1",
+						"run",
+						"app"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tokenize Card",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"value": "prod-123456"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"number\": \"4111111111111111\", \"cvv\": \"123\", \"exp\": \"12/28\"}"
+				},
+				"url": {
+					"raw": "https://farmatodoprueba-518781808749.us-central1.run.app/auth/tokenize",
+					"protocol": "https",
+					"host": [
+						"farmatodoprueba-518781808749",
+						"us-central1",
+						"run",
+						"app"
+					],
+					"path": [
+						"auth",
+						"tokenize"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add to Cart",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"value": "prod-123456"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"customerId\": \"CUSTOMER-UUID\",\n  \"productId\": \"PRODUCT-UUID\",\n  \"qty\": 2\n}"
+				},
+				"url": {
+					"raw": "https://farmatodoprueba-518781808749.us-central1.run.app/cart/items",
+					"protocol": "https",
+					"host": [
+						"farmatodoprueba-518781808749",
+						"us-central1",
+						"run",
+						"app"
+					],
+					"path": [
+						"cart",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Cart",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"value": "prod-123456"
+					}
+				],
+				"url": {
+					"raw": "https://farmatodoprueba-518781808749.us-central1.run.app/cart/CUSTOMER-UUID",
+					"protocol": "https",
+					"host": [
+						"farmatodoprueba-518781808749",
+						"us-central1",
+						"run",
+						"app"
+					],
+					"path": [
+						"cart",
+						"CUSTOMER-UUID"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Order (pay)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"value": "prod-123456"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"customerId\": \"CUSTOMER-UUID\",\n  \"shippingAddress\": \"Calle 123\",\n  \"cardToken\": \"tok_card\"\n}"
+				},
+				"url": {
+					"raw": "https://farmatodoprueba-518781808749.us-central1.run.app/orders",
+					"protocol": "https",
+					"host": [
+						"farmatodoprueba-518781808749",
+						"us-central1",
+						"run",
+						"app"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

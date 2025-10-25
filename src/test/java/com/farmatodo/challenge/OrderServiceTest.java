@@ -1,7 +1,10 @@
 
 package com.farmatodo.challenge;
 
-import com.farmatodo.challenge.domain.*;
+import com.farmatodo.challenge.domain.CartItem;
+import com.farmatodo.challenge.domain.Customer;
+import com.farmatodo.challenge.domain.Order;
+import com.farmatodo.challenge.domain.Product;
 import com.farmatodo.challenge.repo.*;
 import com.farmatodo.challenge.service.MailService;
 import com.farmatodo.challenge.service.OrderService;
@@ -9,15 +12,16 @@ import jakarta.mail.MessagingException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,6 +36,7 @@ class OrderServiceTest {
     @Mock OrderItemRepository orderItems;
     @Mock PaymentAttemptRepository attempts;
     @Mock MailService mail;
+    @Mock AuditLogRepository auditLog;
     @InjectMocks OrderService service;
 
     UUID customerId;
@@ -48,7 +53,6 @@ class OrderServiceTest {
         product = Product.builder().id(productId).name("Aceta").price(new BigDecimal("6500")).stock(5).build();
         cartItem = CartItem.builder().id(UUID.randomUUID()).customer(customer).product(product).qty(2).build();
 
-        // Force approval always
         ReflectionTestUtils.setField(service, "approvalRate", 1.0d);
         ReflectionTestUtils.setField(service, "maxRetries", 3);
     }

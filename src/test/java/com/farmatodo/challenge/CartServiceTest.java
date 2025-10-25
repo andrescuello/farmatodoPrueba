@@ -1,9 +1,11 @@
 
 package com.farmatodo.challenge;
 
+import com.farmatodo.challenge.domain.AuditLog;
 import com.farmatodo.challenge.domain.CartItem;
 import com.farmatodo.challenge.domain.Customer;
 import com.farmatodo.challenge.domain.Product;
+import com.farmatodo.challenge.repo.AuditLogRepository;
 import com.farmatodo.challenge.repo.CartItemRepository;
 import com.farmatodo.challenge.repo.CustomerRepository;
 import com.farmatodo.challenge.repo.ProductRepository;
@@ -17,7 +19,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -28,12 +32,14 @@ class CartServiceTest {
     @Mock CartItemRepository carts;
     @Mock CustomerRepository customers;
     @Mock ProductRepository products;
+    @Mock AuditLogRepository auditLog;
     @InjectMocks CartService service;
 
     UUID customerId;
     UUID productId;
     Customer customer;
     Product product;
+    AuditLog audit;
 
     @BeforeEach
     void setup() {
@@ -81,5 +87,12 @@ class CartServiceTest {
     void removeOne_missing_throws() {
         when(carts.findByCustomerIdAndProductId(customerId, productId)).thenReturn(Optional.empty());
         assertThrows(IllegalArgumentException.class, () -> service.removeOne(customerId, productId));
+    }
+
+    @Test
+    void clearCart_Ok(){
+        UUID customerId = UUID.randomUUID();
+        service.clear(customerId);
+        verify(carts).deleteByCustomerId(customerId);
     }
 }
