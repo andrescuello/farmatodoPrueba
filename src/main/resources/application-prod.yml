@@ -13,6 +13,7 @@ spring:
       ddl-auto: validate
     defer-datasource-initialization: true
     properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
       hibernate.jdbc.time_zone: UTC
       hibernate.jdbc.lob.non_contextual_creation: true
       hibernate.format_sql: false
