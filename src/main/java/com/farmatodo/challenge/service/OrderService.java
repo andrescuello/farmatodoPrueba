@@ -26,6 +26,7 @@ public class OrderService {
     private final OrderItemRepository orderItems;
     private final PaymentAttemptRepository attempts;
     private final MailService mail;
+    private final AuditLogRepository auditRepo;
 
     @Value("${app.payment.approvalRate:0.8}")
     private double approvalRate;
@@ -53,7 +54,7 @@ public class OrderService {
                     .createdAt(Instant.now())
                     .build();
             o = orders.save(o);
-
+            auditRepo.save(createLog("Create Order",o.toString()));
             Map<UUID, Product> prodMap = products.findAllById(
                     items.stream().map(ci -> ci.getProduct().getId()).collect(Collectors.toSet())
             ).stream().collect(Collectors.toMap(Product::getId, Function.identity()));
@@ -89,9 +90,11 @@ public class OrderService {
 
             if (paid) {
                 o.setStatus("PAID"); orders.save(o);
+                auditRepo.save(createLog("order paid",o.toString()));
                 mail.sendSuccess(o);
             } else {
                 o.setStatus("FAILED"); orders.save(o);
+                auditRepo.save(createLog("order failed",o.toString()));
                 mail.sendFailure(o);
             }
 
@@ -102,5 +105,12 @@ public class OrderService {
         } finally {
             MDC.remove("traceId");
         }
+    }
+    private AuditLog createLog(String eventType, String payload){
+        return AuditLog.builder()
+                .traceId(UUID.randomUUID().toString())
+                .eventType(eventType)
+                .payload(payload)
+                .build();
     }
 }

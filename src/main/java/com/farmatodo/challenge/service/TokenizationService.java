@@ -1,8 +1,10 @@
 
 package com.farmatodo.challenge.service;
 
+import com.farmatodo.challenge.domain.AuditLog;
 import com.farmatodo.challenge.domain.Customer;
 import com.farmatodo.challenge.domain.TokenizedCard;
+import com.farmatodo.challenge.repo.AuditLogRepository;
 import com.farmatodo.challenge.repo.CustomerRepository;
 import com.farmatodo.challenge.repo.TokenizedCardRepository;
 import com.farmatodo.challenge.util.Crypto;
@@ -20,6 +22,7 @@ public class TokenizationService {
     private final Crypto crypto;
     private final TokenizedCardRepository tokenRepo;
     private final CustomerRepository customerRepo;
+    private final AuditLogRepository auditRepo;
 
     @Transactional
     public TokenizedCard tokenize(String number, String cvv, String exp, String customerIdOpt) {
@@ -41,6 +44,11 @@ public class TokenizationService {
                 c.ifPresent(tc::setCustomer);
             } catch (Exception ignored) {}
         }
+        AuditLog audit = AuditLog.builder()
+                .traceId(UUID.randomUUID().toString())
+                .eventType("Tokenize")
+                .payload(tc.toString()).build();
+        auditRepo.save(audit);
         return tokenRepo.save(tc);
     }
 

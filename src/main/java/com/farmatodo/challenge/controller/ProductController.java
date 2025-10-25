@@ -3,6 +3,7 @@ package com.farmatodo.challenge.controller;
 
 import com.farmatodo.challenge.controller.dto.UpsertProductRequest;
 import com.farmatodo.challenge.domain.Product;
+import com.farmatodo.challenge.repo.AuditLogRepository;
 import com.farmatodo.challenge.repo.ProductRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
