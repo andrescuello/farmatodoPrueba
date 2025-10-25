@@ -1,6 +1,8 @@
 spring:
   application:
     name: farmatodo-challenge
+  profiles:
+    active: dev
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/shop}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
@@ -13,10 +15,16 @@ spring:
     properties:
       hibernate.jdbc.time_zone: UTC
       hibernate.jdbc.lob.non_contextual_creation: true
+      hibernate.format_sql: true
+      hibernate.show_sql: true
   sql:
     init:
       mode: always
       platform: postgresql
+  logging:
+    level:
+      root: DEBUG
+      org.springframework.web: DEBUG
   mail:
     host: ${SPRING_MAIL_HOST:localhost}
     port: ${SPRING_MAIL_PORT:1025}
@@ -28,10 +36,10 @@ spring:
 
 app:
   security:
-    apiKeyHeader: X-API-KEY
-    allowedApiKeys: dev-123456
+    apiKeyHeader: ${APP_API_KEY_HEADER:X-API-KEY}
+    allowedApiKeys: ${APP_ALLOWED_APP_KEY:dev-123456}
   tokenization:
-    aesKey: 0123456789abcdef0123456789abcdef
+    aesKey: ${APP_TOKENIZATION_AESKEY:0123456789abcdef0123456789abcdef}
   payment:
-    approvalRate: 0.8
-    maxRetries: 3
+    approvalRate: ${APP_PAYMENT_APPROVALRATE:0.8}
+    maxRetries: ${APP_PAYMENT_MAXRETRIES:3}
