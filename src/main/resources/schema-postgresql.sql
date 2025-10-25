@@ -35,7 +35,7 @@ CREATE INDEX IF NOT EXISTS idx_products_stock ON products (stock);
 CREATE TABLE tokenized_cards (
   id           UUID PRIMARY KEY,
   token        VARCHAR(64)    NOT NULL UNIQUE,
-  last4        CHAR(4)        NOT NULL,
+  last4        VARCHAR(4)     NOT NULL,
   brand        VARCHAR(32)    NOT NULL,
   enc_pan      TEXT           NOT NULL,
   customer_id  UUID,
