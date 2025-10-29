@@ -28,6 +28,10 @@ X-API-KEY: dev-123456
 - `repo/` repositorios Spring Data JPA
 - `config/` filtro de API-Key y security
 - `resources/schema-postgresql.sql` esquema base
+- `controller` Encargado de manejar las peticiones HTTP
+- `service` Clases que contienen lógica de negocio
+- `Util` Clases con métodos genéricos que pueden ser reutilizados
+- `Handler` Clases que se encargan de manejar situaciones en específico como Excepciones
 
 ## Tests & Coverage
 ```bash
